@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {
-
-    const [state, setState] = useState(1)
-    const number: number = 1
-
     return (
-        <div>
-            {state}
-            <button onClick={() => setState(state + 1)}>Click</button>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Home />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
