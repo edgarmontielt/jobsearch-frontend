@@ -13,6 +13,21 @@ export default function Signup(): JSX.Element {
                     <p className=' mb-10 text-gray-400 text-lg'>¿Ya tienes una cuenta?, <Link to={'/auth/login'} className=' text-blue-500 font-medium hover:underline'> Inicia sesión</Link></p>
                     <InputForm
                         type={'text'}
+                        name={'name'}
+                        placeholder={'Name'}
+                    />
+                    <InputForm
+                        type={'text'}
+                        name={'country'}
+                        placeholder={'Country'}
+                    />
+                    <InputForm
+                        type={'text'}
+                        name={'phoneNumber'}
+                        placeholder={'Phone number'}
+                    />
+                    <InputForm
+                        type={'text'}
                         name={'email'}
                         placeholder={'Email'}
                     />

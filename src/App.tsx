@@ -9,8 +9,6 @@ import { validateData } from './features/auth';
 function App() {
     const { logged } = useSelector((state: any) => state.auth)
     const dispatch = useDispatch()
-
-    console.log(localStorage.getItem('logged'));
     
 
     useEffect(() => {

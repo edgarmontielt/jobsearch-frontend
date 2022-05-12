@@ -30,7 +30,7 @@ export default function Login(): JSX.Element {
         localStorage.setItem('id', id)
         localStorage.setItem('name', name)
         localStorage.setItem('logged', logged)
-    }, [logged])
+    }, [logged === true])
 
     return (
         <main className=' w-screen h-screen bg-slate-200 flex'>
