@@ -3,9 +3,13 @@ import { post } from "../../api";
 
 export const logIn = createAsyncThunk(
     'auth/login',
-    async (data:object) => {
-        const response:any = await post('/auth/login', data)
-        return response.data
+    async (data: object) => {
+        try {
+            const response: any = await post('/auth/login', data)
+            return response.data    
+        } catch (error) {
+            return error
+        }
     }
 )
 
@@ -34,7 +38,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
 
-    }, 
+    },
     extraReducers: (builder) => {
         builder.addCase(logIn.pending, (state, action) => {
             state.logged = false;
@@ -49,19 +53,18 @@ export const authSlice = createSlice({
             state.loading = false
             state.message = ''
             state.name = "";
-          });
-      
-          builder.addCase(logIn.fulfilled, (state, action) => {
-              
+        });
+
+        builder.addCase(logIn.fulfilled, (state, action) => {
             console.log(action.payload);
-              
+            
             state.logged = true;
             state.error = false;
             state.loading = false;
             state.name = action.payload.user.personalInformation.name
             state.id = action.payload.user._id
             state.token = action.payload.token
-          });
+        });
     }
 })
 
