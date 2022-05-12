@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axios from "axios";
 import { post } from "../../api";
 
 export const logIn = createAsyncThunk(
@@ -6,12 +7,26 @@ export const logIn = createAsyncThunk(
     async (data: object) => {
         try {
             const response: any = await post('/auth/login', data)
-            return response.data    
+            return response.data
         } catch (error) {
             return error
         }
     }
 )
+
+// export const validate = createAsyncThunk(
+//     'auth/validate',
+//     async () => {
+//         try {
+//             const response: any = await axios.post('/auth/validate', {
+
+//             })
+//             return response.validate
+//         } catch (error) {
+
+//         }
+//     }
+// )
 
 export interface AuthState {
     logged: boolean,
@@ -37,15 +52,15 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-
+        validateData(state, action) {
+            state.name = action.payload.name
+            state.logged = action.payload.logged
+            state.token = action.payload.token
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(logIn.pending, (state, action) => {
-            state.logged = false;
-            state.error = false;
             state.loading = true
-            state.message = ''
-            state.name = "";
         })
         builder.addCase(logIn.rejected, (state, action) => {
             state.logged = false;
@@ -56,8 +71,6 @@ export const authSlice = createSlice({
         });
 
         builder.addCase(logIn.fulfilled, (state, action) => {
-            console.log(action.payload);
-            
             state.logged = true;
             state.error = false;
             state.loading = false;
@@ -68,5 +81,5 @@ export const authSlice = createSlice({
     }
 })
 
-
+export const { validateData } = authSlice.actions
 export default authSlice.reducer
