@@ -15,6 +15,18 @@ export const logIn = createAsyncThunk(
     }
 )
 
+export const signUp = createAsyncThunk(
+    'auth/signup',
+    async (data: object) => {
+        try {
+            const response: any = await post('/auth/signup', data)
+            return response.data
+        } catch (error) {
+            return error
+        }
+    }
+)
+
 export const validate = createAsyncThunk(
     'auth/validate',
     async () => {
@@ -65,17 +77,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        // validateData(state, action) {
-        //     state.name = action.payload.name
-        //     state.logged = action.payload.logged
-        //     state.token = action.payload.token
-        // },
-        // logout(state) {
-        //     state.name = ''
-        //     state.logged = false
-        //     state.token = ''
-        //     sessionStorage.clear()
-        // }
+        
     },
     extraReducers: (builder) => {
         builder.addCase(logIn.pending, (state, action) => {
@@ -100,6 +102,18 @@ export const authSlice = createSlice({
             localStorage.setItem('id', state.id)
             localStorage.setItem('name', state.name)
         });
+
+        builder.addCase(signUp.fulfilled, (state, action) => {
+            state.logged = true;
+            state.error = false;
+            state.loading = false;
+            state.name = action.payload.user.personalInformation.name
+            state.id = action.payload.user._id
+            state.token = action.payload.token
+            localStorage.setItem("token", state.token)
+            localStorage.setItem('id', state.id)
+            localStorage.setItem('name', state.name)
+        })
 
         builder.addCase(validate.fulfilled, (state, action) => {
             state.logged = action.payload.data.logged
