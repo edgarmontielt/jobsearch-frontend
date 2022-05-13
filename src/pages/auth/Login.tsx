@@ -10,7 +10,7 @@ import { CgSpinnerTwoAlt } from 'react-icons/cg'
 export default function Login(): JSX.Element {
 
     const dispatch: AppDispatch = useDispatch()
-    const { logged, token, id, loading, name } = useSelector((state: any) => state.auth)
+    const { logged, loading } = useSelector((state: any) => state.auth)
     const navigate = useNavigate()
 
     const login: FormEventHandler<HTMLFormElement> = (event: any) => {
@@ -24,7 +24,7 @@ export default function Login(): JSX.Element {
             if (logged) {
                 navigate('/dashboard')
             }
-        }, 1000)
+        }, 200)
     }, [logged])
 
     return (

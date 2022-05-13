@@ -5,7 +5,7 @@ import { logout } from '../../features/auth'
 import { AppDispatch } from '../../redux/store'
 
 export default function Navbar(): JSX.Element {
-    const { logged, username } = useSelector((state: any) => state.auth)
+    const { logged, name } = useSelector((state: any) => state.auth)
     const dispatch: AppDispatch = useDispatch()
 
     const logOut = () => {
@@ -22,7 +22,7 @@ export default function Navbar(): JSX.Element {
                 </ul> : <>
                     <ul className=' flex gap-5 ml-auto'>
                         <li><Link to={'/dashboard'}>Dashboard</Link></li>
-                        <li>{username}</li>
+                        <li>{name}</li>
                         <li onClick={logOut} className='cursor-pointer'>Cerrar sessión</li>
                     </ul>
                 </>}

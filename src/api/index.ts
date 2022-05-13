@@ -24,5 +24,11 @@ const postToken = async (url: string, data: object) => {
     })
 }
 
+const put = async (url: string, data: object) => {
+    return await instance.put(url, data, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+}
+
 export default instance
-export { get, post, postToken }
+export { get, post, postToken, put }
