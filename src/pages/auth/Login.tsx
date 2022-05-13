@@ -22,15 +22,10 @@ export default function Login(): JSX.Element {
     useEffect(() => {
         setTimeout(() => {
             if (logged) {
-                navigate('/')
+                navigate('/dashboard')
             }
         }, 1000)
-
-        localStorage.setItem("token", token)
-        localStorage.setItem('id', id)
-        localStorage.setItem('name', name)
-        localStorage.setItem('logged', logged)
-    }, [logged === true])
+    }, [logged])
 
     return (
         <main className=' w-screen h-screen bg-slate-200 flex'>

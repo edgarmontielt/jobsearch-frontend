@@ -7,7 +7,8 @@ const instance = axios.create({
 
 const get: Function = async (url: string) => {
     return await instance.get(url, {
-        withCredentials: true
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
 }
 

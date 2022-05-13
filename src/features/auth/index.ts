@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 // import axios from "axios";
-import { post } from "../../api";
+import { post, postToken } from "../../api";
 
 export const logIn = createAsyncThunk(
     'auth/login',
@@ -14,19 +15,31 @@ export const logIn = createAsyncThunk(
     }
 )
 
-// export const validate = createAsyncThunk(
-//     'auth/validate',
-//     async () => {
-//         try {
-//             const response: any = await axios.post('/auth/validate', {
+export const validate = createAsyncThunk(
+    'auth/validate',
+    async () => {
+        try {
+            const response: any = await postToken('/auth/validate', {})
+            return response
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+)
 
-//             })
-//             return response.validate
-//         } catch (error) {
-
-//         }
-//     }
-// )
+export const logout = createAsyncThunk(
+    'auth/logout',
+    async () => {
+        try {
+            const response: any = await postToken('/auth/logout', {})
+            return response
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+)
 
 export interface AuthState {
     logged: boolean,
@@ -52,17 +65,17 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        validateData(state, action) {
-            state.name = action.payload.name
-            state.logged = action.payload.logged
-            state.token = action.payload.token
-        },
-        logout(state) {
-            state.name = ''
-            state.logged = false
-            state.token = ''
-            localStorage.clear()
-        }
+        // validateData(state, action) {
+        //     state.name = action.payload.name
+        //     state.logged = action.payload.logged
+        //     state.token = action.payload.token
+        // },
+        // logout(state) {
+        //     state.name = ''
+        //     state.logged = false
+        //     state.token = ''
+        //     sessionStorage.clear()
+        // }
     },
     extraReducers: (builder) => {
         builder.addCase(logIn.pending, (state, action) => {
@@ -83,9 +96,22 @@ export const authSlice = createSlice({
             state.name = action.payload.user.personalInformation.name
             state.id = action.payload.user._id
             state.token = action.payload.token
+            localStorage.setItem("token", state.token)
+            localStorage.setItem('id', state.id)
+            localStorage.setItem('name', state.name)
         });
+
+        builder.addCase(validate.fulfilled, (state, action) => {
+            state.logged = action.payload.data.logged
+            state.name = action.payload.data.user.username
+        })
+
+        builder.addCase(logout.fulfilled, (state, action) => {
+            state.logged = action.payload.data.logged
+            state.name = action.payload.data.user.username
+        })
     }
 })
 
-export const { validateData, logout } = authSlice.actions
+// export const { logout } = authSlice.actions
 export default authSlice.reducer
