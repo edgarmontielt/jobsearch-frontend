@@ -21,7 +21,6 @@ export default function Signup(): JSX.Element {
             phoneNumber: { value: phoneNumber },
             email: { value: email },
             password: { value: password },
-
         } = event.target
         dispatch(signUp({
             username,

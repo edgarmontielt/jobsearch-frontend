@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-// import axios from "axios";
 import { post, postToken } from "../../api";
 
 export const logIn = createAsyncThunk(
@@ -34,8 +32,7 @@ export const validate = createAsyncThunk(
             const response: any = await postToken('/auth/validate', {})
             return response
         } catch (error) {
-            console.log(error);
-            
+            console.log(error);  
         }
     }
 )
@@ -47,8 +44,7 @@ export const logout = createAsyncThunk(
             const response: any = await postToken('/auth/logout', {})
             return response
         } catch (error) {
-            console.log(error);
-            
+            console.log(error);  
         }
     }
 )
@@ -77,7 +73,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        
+
     },
     extraReducers: (builder) => {
         builder.addCase(logIn.pending, (state, action) => {

@@ -15,7 +15,10 @@ export default function Login(): JSX.Element {
 
     const login: FormEventHandler<HTMLFormElement> = (event: any) => {
         event.preventDefault()
-        const { email: { value: email }, password: { value: password } } = event.target
+        const { 
+            email: { value: email }, 
+            password: { value: password } 
+        } = event.target
         dispatch(logIn({ email, password }))
     }
 

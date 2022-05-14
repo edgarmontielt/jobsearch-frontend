@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../../features/auth'
 import { AppDispatch } from '../../redux/store'
 
 export default function Navbar(): JSX.Element {
     const { logged, name } = useSelector((state: any) => state.auth)
     const dispatch: AppDispatch = useDispatch()
+    const navigate = useNavigate()
 
     const logOut = () => {
         dispatch(logout())
+        navigate('/')
     }
 
     return (

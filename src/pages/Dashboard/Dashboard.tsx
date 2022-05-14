@@ -1,5 +1,5 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { get, postToken, put } from "../../api";
+import { get, put } from "../../api";
 import PersonalInf from "../../components/Dashboard/PersonalInf";
 import NavbarToSession from "../../components/Nav/NavbarToSession";
 
@@ -11,7 +11,7 @@ export default function Dashboard(): JSX.Element {
     get("/cv/" + localStorage.getItem("id")).then((res: any) =>
       setUser(...res.data)
     );
-  }, []);
+  }, [user]);
 
   const skill: MutableRefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement | null>(null);
@@ -19,12 +19,13 @@ export default function Dashboard(): JSX.Element {
   const addSkill = () => {
     console.log(skill.current?.value);
     put("/cv/update/skills/" + user._id, { new: skill.current?.value });
+    setNewSkill(false)
   };
 
   return (
     <>
       <NavbarToSession />
-      <main className=" h-screen bg-gray-100 pt-10 ">
+      <main className=" bg-gray-100 pt-10 ">
         <div className=" bg-white w-[80%] mx-auto p-16">
           <h1 className=" text-4xl font-medium mb-10 text-gray-600">
             {" "}
@@ -35,7 +36,7 @@ export default function Dashboard(): JSX.Element {
           )}
 
           <h4 className=" text-2xl font-medium mb-5">Skills</h4>
-          <section className=" flex gap-2 mb-10">
+          <section className=" flex gap-2 mb-10 flex-wrap">
             {user.habilities?.map((item: string) => {
               return (
                 <span
@@ -48,12 +49,12 @@ export default function Dashboard(): JSX.Element {
             })}
             {!newSkill ? (
               <span
-                className="text-white font-medium opacity-70 bg-blue-300 py-2 px-4 rounded-full cursor-pointer hover:opacity-100"
+                className="text-white font-medium opacity-70 bg-blue-500 py-2 px-4 rounded-full cursor-pointer hover:opacity-100"
                 onClick={() => {
                   setNewSkill(!newSkill);
                 }}
               >
-                +New
+                +Add
               </span>
             ) : (
               <>

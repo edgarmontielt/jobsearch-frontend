@@ -4,8 +4,6 @@ import Home from './pages/Home/Home';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import { useDispatch, useSelector } from 'react-redux';
-import { postToken } from './api';
-import axios from 'axios';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { validate } from './features/auth';
 import { AppDispatch } from './redux/store';

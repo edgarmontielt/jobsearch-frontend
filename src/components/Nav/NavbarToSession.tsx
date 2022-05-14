@@ -15,7 +15,11 @@ export default function NavbarToSession(): JSX.Element {
   
 
   useEffect(() => {
-    if(!logged) navigate('/dashboard')
+    if (logged) {
+      navigate('/dashboard')
+    } else {
+      navigate('/')
+    }
   }, [logged])
 
   return (
