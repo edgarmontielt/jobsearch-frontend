@@ -16,9 +16,6 @@ export default function Dashboard(): JSX.Element {
     );
   }, []);
 
-  console.log(user);
-
-
   const skill: MutableRefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement | null>(null);
 

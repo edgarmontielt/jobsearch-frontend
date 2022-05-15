@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { get } from '../../api'
 import NavbarToSession from '../../components/Nav/NavbarToSession'
 
@@ -23,7 +24,7 @@ export default function Jobs(): JSX.Element {
                     {jobs && jobs.map((job: any) => {
                         return <div key={job._id} className=' border-[1px] p-4 rounded'>
                             <section className=' flex items-center'>
-                                <h1 className=' text-xl font-medium'>{job.title}</h1>
+                                <Link to={'/jobs/details/' + job._id}><h1 className=' text-xl font-medium hover:underline cursor-pointer'>{job.title}</h1></Link>
                                 <p className=' ml-auto text-sm'>{job.idCompany.name}</p>
                             </section>
                             <p>Fecha de publicación: {job.createdAt.split('T')[0]}</p>

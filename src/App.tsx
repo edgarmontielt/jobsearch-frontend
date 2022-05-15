@@ -9,6 +9,7 @@ import { validate } from './features/auth';
 import { AppDispatch } from './redux/store';
 import Jobs from './pages/jobs/Jobs';
 import NewCV from './pages/cv/NewCv';
+import JobDetails from './pages/jobs/JobDetails';
 
 function App() {
     // const { logged } = useSelector((state: any) => state.auth)
@@ -27,6 +28,7 @@ function App() {
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/dashboard/newcv' element={<NewCV />} />
+                <Route path='/jobs/details/:id' element={<JobDetails />} />
             </Routes>
         </BrowserRouter>
     );

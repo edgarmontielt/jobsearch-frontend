@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PersonalInf({ personalInf }: any) {
+export default function PersonalInf({ personalInf }: any): JSX.Element {
     
     return (
         <section className=' flex gap-20 mb-20'>
