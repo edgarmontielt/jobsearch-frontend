@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home/Home';
+import Home from './pages/home/Home';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import { useDispatch, useSelector } from 'react-redux';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Dashboard from './pages/dashboard/Dashboard';
 import { validate } from './features/auth';
 import { AppDispatch } from './redux/store';
+import Jobs from './pages/jobs/Jobs';
+import NewCV from './pages/cv/NewCv';
 
 function App() {
-    const { logged } = useSelector((state: any) => state.auth)
+    // const { logged } = useSelector((state: any) => state.auth)
     const dispatch: AppDispatch = useDispatch()
 
     useEffect(() => {
@@ -23,6 +25,8 @@ function App() {
                 <Route path='/auth/login' element={<Login />} />
                 <Route path='/auth/signup' element={<Signup />} />
                 <Route path='/dashboard' element={<Dashboard />} />
+                <Route path='/jobs' element={<Jobs />} />
+                <Route path='/dashboard/newcv' element={<NewCV />} />
             </Routes>
         </BrowserRouter>
     );
