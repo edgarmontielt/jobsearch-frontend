@@ -6,8 +6,9 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard(): JSX.Element {
-  const [user, setUser]: any = useState([]);
+  const [user, setUser]: [any, Function] = useState([]);
   const [newSkill, setNewSkill]: [boolean, Function] = useState(false);
+  const [newIdiom, setNewIdiom]: [boolean, Function] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,13 +17,24 @@ export default function Dashboard(): JSX.Element {
     );
   }, []);
 
+  console.log(user);
+  
+
   const skill: MutableRefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement | null>(null);
+
+  const idiom: MutableRefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement | null>(null);
 
   const addSkill = () => {
     put("/cv/update/skills/" + user._id, { new: skill.current?.value });
     setNewSkill(false);
   };
+
+  const addIdiom = () => {
+    put("/cv/update/languages/" + user._id, {new: idiom.current?.value})
+    setNewIdiom(false)
+  }
 
   const navigation = () => {
     navigate('/dashboard/newcv')
@@ -80,7 +92,7 @@ export default function Dashboard(): JSX.Element {
                       setNewSkill(!newSkill);
                     }}
                   >
-                    <AiFillCloseCircle className=" text-red" />
+                    <AiFillCloseCircle className=" text-red-500" />
                   </button>
                 </>
               )}
@@ -94,6 +106,36 @@ export default function Dashboard(): JSX.Element {
                   </span>
                 );
               })}
+              {!newIdiom ? (
+                <span
+                  className="text-white font-medium opacity-70 bg-blue-500 py-2 px-4 rounded-full cursor-pointer hover:opacity-100"
+                  onClick={() => {
+                    setNewIdiom(!newIdiom);
+                  }}
+                >
+                  +Add
+                </span>
+              ) : (
+                <>
+                  <input
+                    placeholder="New"
+                    name="new"
+                    type="text"
+                    ref={idiom}
+                    className="w-20 outline-none py-0 border-[1px] rounded-full px-2 text-center"
+                  />
+                  <button onClick={addIdiom}>
+                    <AiFillCheckCircle className=" text-emerald-600" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setNewIdiom(!newIdiom);
+                    }}
+                  >
+                    <AiFillCloseCircle className=" text-red-500" />
+                  </button>
+                </>
+              )}
             </section>
             <h4 className=" text-2xl font-medium mb-5">Estudios</h4>
             <section className=" flex flex-col gap-2">
@@ -102,7 +144,7 @@ export default function Dashboard(): JSX.Element {
                   <>
                     <p className=" text-base font-medium">{item.nameSchool}</p>
                     <p>{item.levelStudy}</p>
-                    
+
                   </>
                 );
               })}
